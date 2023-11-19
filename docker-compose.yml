@@ -1,0 +1,58 @@
+version: "3"
+services:
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: Suitome_app
+        volumes:
+            - ".:/var/www/html"
+        ports:
+            - "8000:8000"
+        environment:
+            - DB_HOST=localhost
+            - DB_PORT=3307
+        depends_on:
+            - mysql
+        networks:
+            - dev
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: Suitome_phpmyadmin
+        environment:
+            PMA_HOST: mysql
+            PMA_PORT: 3307
+        ports:
+            - "8080:80"
+        depends_on:
+            - mysql
+        networks:
+            - dev
+    mysql:
+        image: "mysql/mysql-server:8.0"
+        ports:
+            - "3307:3307"
+        environment:
+            MYSQL_DATABASE: "sutom"
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+        volumes:
+            - "sail-mysql:/var/lib/mysql"
+            - "./vendor/laravel/sail/database/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh"
+        networks:
+            - sail
+        healthcheck:
+            test:
+                - CMD
+                - mysqladmin
+                - ping
+                - "-p${DB_PASSWORD}"
+            retries: 3
+            timeout: 5s
+networks:
+    dev: null
+    sail: 
+      driver: bridge
+volumes:
+    mysql_data: null
+    sail-mysql:
+        driver: local
