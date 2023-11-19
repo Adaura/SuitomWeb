@@ -16,42 +16,41 @@ class JeuController extends Controller
         return view('jeu.index', ['jours' => $jours]);
     }
 
-    public function jouer($jour)
+    public function jouer()
     {
-        $mot = $this->getMotDuJour($jour);
-
-        if (!$mot) {
-            return redirect()->route('jeu.index')->with('error', 'Jeu non disponible pour ce jour.');
+        $mot = $this->getMotDuJour();
+        if(!$mot){
+            $mot = new Mot();
+            $faker = \Faker\Factory::create('fr_FR');
+            $mot->mot = $faker->word; // génère un mot aléatoire
+            $mot->date = now();
+            $mot->save();
         }
 
-        return view('jeu.jouer', ['mot' => $mot, 'jour' => $jour, 'word' => $this->word]);
+        return view('jeu.jouer', ['mot' => $mot, 'word' => $this->word]);
     }
 
 
-    public function verifier(Request $request, $jour)
+    public function verifier(Request $request)
     {
-        $mot = $this->getMotDuJour($jour);
-
-        if (!$mot) {
-            return redirect()->route('jeu.index')->with('error', 'Jeu non disponible pour ce jour.');
-        }
-
+        $mot = $this->getMotDuJour();
         if ($request->input('mot') == $mot->mot) {
-            return redirect()->route('jeu.jouer', ['jour' => $jour])->with('success', 'Bravo! Vous avez deviné le mot correctement.');
+            return redirect()->route('jeu.jouer')->with('success', 'Bravo! Vous avez deviné le mot correctement.');
         } else {
-            return redirect()->route('jeu.jouer', ['jour' => $jour])->with('error', 'Essayez encore.');
+            return redirect()->route('jeu.jouer')->with('error', 'Essayez encore.');
         }
     }
 
-    private function getMotDuJour($jour)
+    private function getMotDuJour()
     {
-        return Mot::whereDay('date', $jour)
+        return Mot::whereDay('date', now()->day)
             ->whereMonth('date', now()->month)
             ->whereYear('date', now()->year)
             ->first();
     }
 
-    public function set(){
+    public function set()
+    {
         $this->word = "";
     }
 }

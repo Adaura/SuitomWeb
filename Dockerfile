@@ -12,7 +12,7 @@ WORKDIR /var/www/html
 
 # Installer Node.js et npm
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - \
-    && apt-get install -y nodejs
+    && apt-get install -y nodejs npm
 
 # Installation et configuration de votre site pour la production
 
@@ -36,7 +36,6 @@ RUN php artisan route:cache
 # Optimizing View loading
 RUN php artisan view:cache
 RUN php artisan m:migration init
-# RUN php artisan migrate
 # RUN php artisan fill:database
 # RUN php artisan serve
 # RUN npm run dev

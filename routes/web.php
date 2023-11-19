@@ -27,5 +27,5 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/accueil', [HomeController::class, 'index'])->name('accueil');
 Route::get('/game', [GameController::class, 'index'])->name('game');
 Route::get('/jeu', [JeuController::class, 'index'])->name('jeu.index');
-Route::get('/jeu/jouer/{jour}', [JeuController::class, 'jouer'])->name('jeu.jouer');
-Route::post('/jeu/verifier/{jour}', [JeuController::class, 'verifier'])->name('jeu.verifier');
+Route::get('/jeu/jouer', [JeuController::class, 'jouer'])->name('jeu.jouer');
+Route::post('/jeu/verifier', [JeuController::class, 'verifier'])->name('jeu.verifier');
