@@ -19,9 +19,9 @@ class JeuController extends Controller
 
     public function jouer($jour)
     {
-        // if (!Auth::user()) {
-        //     return view('auth.login');
-        // }
+        if (!Auth::user()) {
+            return view('auth.login');
+        }
         $mot = $this->getMotDuJour($jour);
         if (!$mot) {
             $mot = new Mot();
@@ -62,7 +62,18 @@ class JeuController extends Controller
                 $hintTab[] = $hints;
             }
         }
-        return view('jeu.jouer', ['mot' => $mot, 'jour' => $jour, 'indices' => $hintTab, 'words' => $words])->with('error', 'Essayez encore.');
+        return view(
+            'jeu.jouer',
+            [
+                'mot' => $mot,
+                'jour' => $jour,
+                'indices' => $hintTab,
+                'words' => $request->input('words')
+            ]
+        )->with(
+                'error',
+                'Essayez encore.'
+            );
     }
 
     private function getMotDuJour($jour)
