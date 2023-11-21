@@ -26,6 +26,7 @@ COPY . .
 
 # https://laravel.com/docs/8.x/deployment#optimizing-configuration-loading
 RUN composer install --no-interaction --optimize-autoloader --no-dev
+RUN chmod -R gu+w storage && chmod -R guo+w storage
 # Generate security key
 RUN php artisan key:generate
 # Optimizing Configuration loading
