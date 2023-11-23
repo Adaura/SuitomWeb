@@ -4,18 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Controllers\CommentaireController;
 
-class Essai extends Model
+
+class Commentaire extends Model
 {
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['id', 'tentative', 'user_id', 'mot_id'];
-
     use HasFactory;
+    
     public function user()
     {
         return $this->belongsTo(User::class);

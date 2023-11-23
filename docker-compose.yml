@@ -2,13 +2,14 @@ version: "3"
 services:
     app:
         build:
+            args:
+                user: coldman
+                uid: 1000
             context: ./
             dockerfile: Dockerfile
         container_name: sutom_app
         volumes:
             - ".:/var/www"
-        ports:
-            - 9000:9000
         environment:
             - "DB_HOST=db"
             - "DB_PORT=3306"
