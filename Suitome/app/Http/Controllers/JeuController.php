@@ -11,7 +11,7 @@ class JeuController extends Controller
     public $word = "boom";
     public function index()
     {
-        // Créer un tableau des jours du mois actuel
+       
         $jours = range(1, now()->daysInMonth);
 
         return view('jeu.index', ['jours' => $jours]);
@@ -41,10 +41,12 @@ class JeuController extends Controller
         $motDuJour = strtolower($mot->mot);
         $hintTab = [];
         $words = json_decode($request->input('words'));
+
         foreach ($words as $val) {
             $val = strtolower($val);
             $hints = [];
             if ($val == $motDuJour) {
+                $mot->increment('success_count');
                 return redirect()->route('jeu.jouer', ['jour' => $jour])->with('success', 'Bravo! Vous avez deviné le mot correctement.');
             } else {
                 for ($i = 0; isset($motDuJour[$i]); $i++) {
@@ -62,19 +64,17 @@ class JeuController extends Controller
                 $hintTab[] = $hints;
             }
         }
-        return view(
-            'jeu.jouer',
-            [
-                'mot' => $mot,
-                'jour' => $jour,
-                'indices' => $hintTab,
-                'words' => $request->input('words')
-            ]
-        )->with(
-                'error',
-                'Essayez encore.'
-            );
+
+        
+        return view('jeu.jouer', [
+            'mot' => $mot,
+            'jour' => $jour,
+            'indices' => $hintTab,
+            'words' => $request->input('words'),
+            'successCount' => $mot->success_count
+        ])->with('error', 'Essayez encore.');
     }
+
 
     private function getMotDuJour($jour)
     {

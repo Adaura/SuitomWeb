@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev zip unzip && \
 
 WORKDIR /var/www/html
 
-# ... (autres commandes pour PHP et autres dépendances)
+
 
 # Installer Node.js et npm
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - \

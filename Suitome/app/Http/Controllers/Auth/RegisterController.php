@@ -80,26 +80,25 @@ class RegisterController extends Controller
         ]);
     }
 
-    public function showChangeNameForm()
+    public function showChangeNameForm(Request $request)
     {
-        return view('auth.change_name');
+        dd("");
+        // return view('auth.change_name');
     }
     public function changeName(Request $request)
+
     {
+        dd(Auth::check());
         $request->validate([
             'name' => 'required|string|max:255',
         ]);
 
-        // Récupérez l'utilisateur actuellement authentifié.
         $user = Auth::user();
+        dd(get_class_methods($user));
 
-        // Vérifiez si l'utilisateur est authentifié.
         if ($user) {
-            // Modifiez le nom de l'utilisateur directement.
             $user->name = $request->name;
-
-            // Enregistrez les modifications dans la base de données.
-            $user->save();
+            // $user->save();
 
             return redirect()->route('home')->with('status', 'Votre profil a été mis à jour avec succès.');
         }

@@ -67,7 +67,7 @@
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
-                                <a class="dropdown-item" href="{{ route('name.change-form') }}">
+                                <a class="dropdown-item" href="/change-name">
                                     {{ __('Modifier profil') }}
                                 </a>
 

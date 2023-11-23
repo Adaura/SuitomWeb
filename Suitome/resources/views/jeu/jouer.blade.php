@@ -12,7 +12,7 @@
         font-weight: bold
     }
 </style>
-<div class="container d-flex justify-content-center p-5">
+<div class="container justify-content-center p-5">
     @if(session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
@@ -40,6 +40,60 @@
                 </tr>
                 @endfor
     </table>
+    <form method="POST" action="{{ route('mots.like', $mot->id) }}">
+    @csrf
+    <button type="submit" class="btn btn-{{ $mot->likes->where('user_id', Auth::id())->count() > 0 ? 'secondary' : 'primary' }}">
+        {{ $mot->likes->where('user_id', Auth::id())->count() > 0 ? 'Unlike' : 'Like' }}
+    </button>
+</form>
+
+<p>{{ $mot->likes->count() }} likes</p>
+    <div class="">
+        <div class="card">
+
+
+            <div class="card-body">
+                @if (session('status'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('status') }}
+                </div>
+                @endif
+
+                <p>Ce mot a été deviné correctement {{ $mot->success_count }} fois.</p>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+    <div class="card-body">
+        
+        <form method="POST" action="{{ route('commentaire.store') }}">
+            @csrf
+            <input type="hidden" name="mot_id" value="{{ $mot->id }}">
+            <textarea name="commentaire" required></textarea>
+            <button type="submit">Poster le commentaire</button>
+        </form>
+    </div></div>
+
+
+@foreach ($mot->commentaires as $commentaire)
+    <div class="card mb-2">
+        <div class="card-header">
+            Commenté par {{ $commentaire->user->name }} le {{ $commentaire->created_at->format('d/m/Y H:i') }}
+        </div>
+        <div class="card-body">
+            <p>{{ $commentaire->commentaire }}</p>
+        </div>
+    </div>
+@endforeach
+
+
+
+
+
+
+
+
+
 
     <form id="gameForm" style="display: none" action="{{ route('jeu.verifier', $jour) }}" method="POST">
         @csrf

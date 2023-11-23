@@ -34,6 +34,8 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+
+
     /**
      * The attributes that should be cast.
      *
@@ -43,4 +45,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+      public function commentaires()
+    {
+        return $this->hasMany(Commentaire::class);
+    }
+
+    public function motLikes()
+    {
+        return $this->hasMany(MotLike::class);
+    }
 }
