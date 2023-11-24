@@ -7,6 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Essai extends Model
 {
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['id', 'tentative', 'user_id', 'mot_id'];
+
     use HasFactory;
     public function user()
     {

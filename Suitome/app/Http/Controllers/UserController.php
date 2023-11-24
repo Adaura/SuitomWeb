@@ -62,7 +62,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->save();
 
-        /
+        
         return redirect()->route('home')->with('status', '');
 
         return view('auth.change_name', ['user' => $user]);
