@@ -21,7 +21,7 @@
             <div class="row">
                 @foreach($jours as $jour)
                 <div class="col-md-2">
-                    @if($jour <= now()->day + 1)
+                    @if($jour <= now()->day)
                         <a href="{{ route('jeu.jouer', $jour) }}" class="btn calendar-btn m-2 {{$jour == now()->day+1 ? 'btn-light' : ''}}">{{ $jour }}</a>
                         @else
                         <span class="btn m-2 text-secondary">{{ $jour }}</span>

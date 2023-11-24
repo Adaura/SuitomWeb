@@ -12,4 +12,8 @@ class Mot extends Model
     {
         return $this->hasMany(Essai::class);
     }
+    public function likes()
+{
+    return $this->hasMany(MotLike::class);
+}
 }

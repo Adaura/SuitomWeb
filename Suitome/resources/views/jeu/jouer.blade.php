@@ -82,6 +82,20 @@
   </form>
   @endif
 
+  {{-- ... --}}
+
+<form method="POST" action="{{ route('mots.like', $mot->id) }}">
+    @csrf
+    <button type="submit" class="btn btn-{{ $mot->likes->where('user_id', Auth::id())->count() > 0 ? 'secondary' : 'primary' }}">
+        {{ $mot->likes->where('user_id', Auth::id())->count() > 0 ? 'Unlike' : 'Like' }}
+    </button>
+</form>
+
+<p>{{ $mot->likes->count() }} likes</p>
+
+{{-- ... --}}
+
+
   <div class="my-5 container ms-auto d-flex flex-column align-items-end">
     <form class="col-8" method="POST" action="{{ route('commentaire.store') }}">
       <h5>Commentaires</h5>
