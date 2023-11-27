@@ -1,7 +1,7 @@
 <h1>SUTOM</h1>
 <h5>Réalisé par : </h5>
 <h3>Adame DROUIN</h3>
-<h3>arnaud BROCARD</h3>
+<h3>Arnaud BROCARD</h3>
 <h3>Rossindji DEGAND</h3>
 <h3>Omar CAMARA</h3>
 
