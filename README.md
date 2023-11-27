@@ -6,5 +6,5 @@
 <h3>Omar CAMARA</h3>
 
 <h1>Manuel</h1>
-Sur la racine du projet éxécutez la commande `docker-compose` up sur pour démarrer le projet sur Docker.
-Exécutez ensuite la commande `docker compose exec app php artisan migrate` pour faire la migration des entités vers la base de données
+Sur la racine du projet, éxécutez la commande suivante pour démarrer le projet sur Docker: <blockquote>docker-compose up</blockquote> 
+Exécutez ensuite la commande suivante pour faire la migration des entités vers la base de données: <blockquote>docker-compose exec app php artisan migrate</blockquote>
