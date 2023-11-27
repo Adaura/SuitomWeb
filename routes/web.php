@@ -40,4 +40,4 @@ Route::post('/change-name', [UserController::class, 'editUser'])->name('name.cha
 Route::post('/commentaires', [CommentaireController::class, 'store'])->name('commentaire.store');
 
 Route::post('/mots', [MotLikeController::class, 'like'])->name('mots.like');
-Route::post('/mots/{mot}/like', [MotLikeController::class, 'like'])->name('mots.like');
+Route::post('/mots/{mot}/like', [MotLikeController::class, 'like'])->name('mot.like');
