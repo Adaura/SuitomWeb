@@ -24,6 +24,8 @@ services:
             - "8080:80"
         depends_on:
             - db
+        networks:
+            - dev
     db:
         image: mariadb
         container_name: sutom_db
